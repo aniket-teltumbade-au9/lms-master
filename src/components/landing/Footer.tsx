@@ -1,10 +1,10 @@
 import React from "react";
 import { footerInfo } from "../../utils/info/footer";
 
-// Type Guard to check if a section has an 'icons' property
-const hasIcons = (section: keyof typeof footerInfo): section is "Follow Us" => 
-  "icons" in footerInfo[section];
+// Type Guard to check if a section has 'icons'
+const hasIcons = (section: string): section is "Follow Us" => section === "Follow Us";
 
+// Type Guard to check if a section exists in footerInfo
 const isValidSection = (key: string): key is keyof typeof footerInfo => key in footerInfo;
 
 function Footer() {
@@ -20,7 +20,10 @@ function Footer() {
             <div className="flex flex-col gap-2">
               {isValidSection(section) && Array.isArray(footerInfo[section]) ? (
                 footerInfo[section].map((item, index) => (
-                  <div key={index}>{item.text && <span>{item.text}</span>}</div>
+                  <div key={index} className="flex items-center gap-2">
+                    {"Icon" in item && <item.Icon className="text-xl" />}
+                    <span>{item.text}</span>
+                  </div>
                 ))
               ) : (
                 hasIcons(section) && (
