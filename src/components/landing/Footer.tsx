@@ -1,6 +1,10 @@
 import React from "react";
 import { footerInfo } from "../../utils/info/footer";
 
+// Type Guard to check if a section has an 'icons' property
+const hasIcons = (section: keyof typeof footerInfo): section is "Follow Us" => 
+  "icons" in footerInfo[section];
+
 const isValidSection = (key: string): key is keyof typeof footerInfo => key in footerInfo;
 
 function Footer() {
@@ -14,24 +18,26 @@ function Footer() {
 
             {/* Section Content */}
             <div className="flex flex-col gap-2">
-            {isValidSection(section) && Array.isArray(footerInfo[section]) ? (
-              footerInfo[section].map((item, index) => (
-                <div key={index}>{item.text && <span>{item.text}</span>}</div>
-              ))
-            )  : (
-                <div className="flex gap-4">
-                  {footerInfo[section].icons.map((Icon, index) => (
-                    <Icon key={index} className="text-2xl hover:text-gray-400 transition" />
-                  ))}
-                </div>
+              {isValidSection(section) && Array.isArray(footerInfo[section]) ? (
+                footerInfo[section].map((item, index) => (
+                  <div key={index}>{item.text && <span>{item.text}</span>}</div>
+                ))
+              ) : (
+                hasIcons(section) && (
+                  <div className="flex gap-4">
+                    {footerInfo[section].icons.map((Icon, index) => (
+                      <Icon key={index} className="text-2xl hover:text-gray-400 transition" />
+                    ))}
+                  </div>
+                )
               )}
             </div>
           </div>
         ))}
       </div>
-      <hr className='my-6 md:mx-8 md:mt-12 md:pb-8'/>
-      <div className='text-center'>© 2025 EduLMS. All rights reserved.</div>
-      </div>
+      <hr className="my-6 md:mx-8 md:mt-12 md:pb-8" />
+      <div className="text-center">© 2025 EduLMS. All rights reserved.</div>
+    </div>
   );
 }
 
