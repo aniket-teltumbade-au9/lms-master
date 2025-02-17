@@ -1,6 +1,8 @@
 import React from "react";
 import { footerInfo } from "../../utils/info/footer";
 
+const isValidSection = (key: string): key is keyof typeof footerInfo => key in footerInfo;
+
 function Footer() {
   return (
     <div className="w-full sm:px-2 md:px-20 py-12">
@@ -12,11 +14,11 @@ function Footer() {
 
             {/* Section Content */}
             <div className="flex flex-col gap-2">
-              {Array.isArray(footerInfo[section]) ? (
-                footerInfo[section].map((item, index) => (
-                  <div key={index}>{item.text && <span>{item.text}</span>}</div>
-                ))
-              ) : (
+            {isValidSection(section) && Array.isArray(footerInfo[section]) ? (
+              footerInfo[section].map((item, index) => (
+                <div key={index}>{item.text && <span>{item.text}</span>}</div>
+              ))
+            )  : (
                 <div className="flex gap-4">
                   {footerInfo[section].icons.map((Icon, index) => (
                     <Icon key={index} className="text-2xl hover:text-gray-400 transition" />
