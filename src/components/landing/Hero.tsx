@@ -1,4 +1,3 @@
-import React from 'react';
 
 function Hero() {
     return (
@@ -6,7 +5,7 @@ function Hero() {
             <div className="absolute inset-0 bg-black bg-opacity-50"></div>
             <div className='relative md:m-[80px] xs:mx-2 w-full flex items-center py-10'>
                 <div className='flex flex-col gap-y-10 w-full max-w-[768px] p-8'>
-                    <div className='font-bold text-[48px] leading-[52px] text-white md:text-left'>
+                    <div className='font-bold text-[36px] leading-[39px] md:text-[48px] md:leading-[52px] text-white md:text-left'>
                         Empower Your Future with World-Class Education.
                     </div>
                     <div className='text-[24px] leading-[26px] text-white md:text-left'>

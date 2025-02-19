@@ -13,15 +13,18 @@ type CardProps = Readonly<{
 
 const Card: React.FC<CardProps> = ({ title, university, accreditation, duration, mode }) => {
     return (
-        <div className='p-6 bg-[#ffffff10] rounded-2xl flex flex-col gap-y-7'>
-            <h2 className='text-header font-bold text-2xl'>{title}</h2>
-            <div className='flex flex-col gap-y-2'>
-                <p className='text-subtitle'>{university}</p>
+        <div className='p-6 bg-[#ffffff10] rounded-2xl flex flex-col gap-y-7 h-full'>
+            <h2 className="text-header font-bold text-2xl truncate w-full overflow-hidden whitespace-nowrap">
+                {title}
+            </h2>
+
+            <div className='flex flex-col gap-y-2 flex-grow'>
+                <p className='text-subtitle '>{university}</p>
                 <p className='flex gap-x-2 items-center'><BiSolidStar />{accreditation}</p>
                 <p className='flex gap-x-2 items-center'><FaRegClock />{duration}</p>
                 <p className='flex gap-x-2 items-center'><FaLaptop />{mode}</p>
             </div>
-            <button className="bg-header w-full hover:bg-opacity-80 transition duration-300 p-3 rounded-[8px] mt-1 mb-1">
+            <button className="bg-header w-full hover:bg-opacity-80 transition duration-300 p-3 rounded-[8px]">
                 View Details
             </button>
         </div>
