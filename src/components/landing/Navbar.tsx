@@ -22,7 +22,7 @@ function Navbar() {
                     </div>
 
                     {/* Sign In Button (Desktop) */}
-                    <Link href='/sign_in' className="bg-header px-6 py-2 hidden md:block rounded-full font-medium hover:bg-opacity-80 transition duration-300">
+                    <Link href='/auth/sign_in' className="bg-header px-6 py-2 hidden md:block rounded-full font-medium hover:bg-opacity-80 transition duration-300">
                         Sign In
                     </Link>
 
@@ -42,7 +42,7 @@ function Navbar() {
                         <a href="#" className="hover:text-header transition duration-300">About</a>
                         <a href="#" className="hover:text-header transition duration-300">Features</a>
                         <a href="#" className="hover:text-header transition duration-300">Success Stories</a>
-                        <Link href="/sign_in" className="bg-header px-6 py-2 rounded-full font-medium hover:bg-opacity-80 transition duration-300">
+                        <Link href="/auth/sign_in" className="bg-header px-6 py-2 rounded-full font-medium hover:bg-opacity-80 transition duration-300">
                             Sign In
                         </Link>
                     </div>

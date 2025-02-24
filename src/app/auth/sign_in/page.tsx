@@ -1,7 +1,13 @@
+"use client"; // Required for useRouter in App Router
+
 import Input from "@/components/form/input";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function SignIn() {
+  const router = useRouter();
+
   return (
     <div className="w-full flex items-center h-[100vh]">
       <div className="hidden md:w-[65%] md:flex items-center justify-center relative h-full">
@@ -34,9 +40,17 @@ function SignIn() {
                 <input type="checkbox" />
                 <div className="text-[#E5E7EB] text-[16px]">Remember me</div>
               </div>
-              <div className="text-[#E5E7EB] text-[16px]">Forgot Password?</div>
+              <div className="text-[#E5E7EB] text-[16px]">
+                <Link href="/auth/forgot_password" className="text-header">
+                  Forgot Password?
+                </Link>
+              </div>
             </div>
-            <div><button className="w-full bg-header rounded-[8px] p-[10.5px]">Sign In</button></div>
+            <div>
+              <button onClick={() => router.push("/dashboard/home")} className="w-full bg-header rounded-[8px] p-[10.5px]">
+                Sign In
+              </button>
+            </div>
             <div className="flex items-center gap-4">
               <div className="flex-1 border-t border-[#FFFFFF20]"></div>
               <span className="text-[#E5E7EB] text-[16px]">OR</span>
@@ -50,8 +64,8 @@ function SignIn() {
             </div>
           </div>
           <div className="w-full h-[7.73%] flex flex-col justify-between items-center">
-            <div className="text-[#E5E7EB] text-[16px]">New user? Create an account</div>
-            <div className="flex text-[#E5E7EB] text-[14px] gap-x-6"><div>Privacy</div> <div>Help</div> <div>Contact</div></div>
+            <div className="text-[#E5E7EB] text-[16px]">New user? <Link href="/auth/sign_up" className="text-header"> Create an account</Link></div>
+            <div className="flex text-[#E5E7EB] text-[14px] gap-x-6"><Link href="/">Home</Link> <Link href="/privacy">Privacy</Link> <Link href="/help">Help</Link> <Link href="/contact">Contact</Link></div>
           </div>
         </div>
       </div>
