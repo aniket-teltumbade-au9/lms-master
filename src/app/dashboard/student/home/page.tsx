@@ -1,6 +1,6 @@
-import ActiveCourses from "@/components/dashboard/Home/ActiveCourses"
-import PerfAss from "@/components/dashboard/Home/PerfAsss"
-import Welcome from "@/components/dashboard/Home/Welcome"
+import ActiveCourses from "@/components/dashboard/student/Home/ActiveCourses"
+import PerfAss from "@/components/dashboard/student/Home/PerfAsss"
+import Welcome from "@/components/dashboard/student/Home/Welcome"
 
 function Home() {
     return (

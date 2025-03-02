@@ -47,7 +47,7 @@ function SignIn() {
               </div>
             </div>
             <div>
-              <button onClick={() => router.push("/dashboard/home")} className="w-full bg-header rounded-[8px] p-[10.5px]">
+              <button onClick={() => router.push("/dashboard/student/home")} className="w-full bg-header rounded-[8px] p-[10.5px]">
                 Sign In
               </button>
             </div>
