@@ -9,7 +9,9 @@ function ActiveCourses() {
                 {courses
                     .slice(0, 3)
                     .map((course, index) => (
-                        <Card key={index} {...course} />
+                        <div key={index} className="sm:w-full md:w-1/3">
+                            <Card {...course} />
+                        </div>
                     ))}
             </div>
         </div>

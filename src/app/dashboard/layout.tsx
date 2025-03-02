@@ -11,10 +11,10 @@ interface LayoutProps {
     children: React.ReactNode
 }
 const sidebarItems = [
-    { Icon: BiHome, text: 'Dashboard', link: '/dashboard/home' },
-    { Icon: PiGraduationCapDuotone, text: 'Courses', link: '/dashboard/courses' },
-    { Icon: LiaListAlt, text: 'Assignments', link: '/dashboard/assignments' },
-    { Icon: BiCalendar, text: 'Schedule', link: '/dashboard/schedule' },
+    { Icon: BiHome, text: 'Dashboard', link: '/dashboard/student/home' },
+    { Icon: PiGraduationCapDuotone, text: 'Courses', link: '/dashboard/student/courses' },
+    { Icon: LiaListAlt, text: 'Assignments', link: '/dashboard/student/assignments' },
+    { Icon: BiCalendar, text: 'Schedule', link: '/dashboard/student/schedule' },
 ]
 function Layout({ children }: LayoutProps) {
     const pathname = usePathname(); // Get current route
