@@ -1,7 +1,8 @@
+import Assignments from "@/components/dashboard/student/Assignments"
 
 function Home() {
     return (
-        <div>Home</div>
+        <Assignments />
     )
 }
 
