@@ -19,3 +19,67 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* styles/custom-calendar.css */
+.rbc-calendar {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.rbc-today {
+  background-color: transparent !important;
+  /* Removes highlight */
+}
+
+/* ✅ Hide toolbar (view buttons) */
+.rbc-toolbar {
+  display: none !important;
+}
+
+/* ✅ Remove horizontal lines */
+.rbc-time-content>*>* {
+  border-bottom: none !important;
+}
+
+/* ✅ Full-width events with padding, rounded corners, and custom border */
+
+
+/* ✅ Adjust event row to take full width */
+.rbc-event {
+  width: 100% !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+/* ✅ Remove extra calendar borders */
+.rbc-day-bg {
+  border-color: #ffffff10 !important;
+  /* Light white tint */
+}
+
+/* ✅ Adjust border radius for day containers */
+.rbc-time-view {
+  border-radius: 12px !important;
+  overflow: hidden;
+  background-color: #ffffff05;
+}
+
+.rbc-day-slot .rbc-time-slot {
+  border-top: unset !important;
+}
+
+.rbc-day-slot .rbc-events-container {
+  margin: unset !important;
+  padding: 8px;
+}
+
+.rbc-time-content>*+*>*,
+.rbc-time-view,
+.rbc-time-view * {
+  border-color: #ffffff10 !important;
+}
+
+.rbc-allday-cell {
+  display: none !important;
+  /* Hide rows with no events */
+}
