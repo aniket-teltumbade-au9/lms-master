@@ -1,4 +1,3 @@
-import React from "react";
 import { footerInfo } from "../../utils/info/footer";
 
 // Type Guard to check if a section has 'icons'
@@ -39,7 +38,7 @@ function Footer() {
         ))}
       </div>
       <hr className="my-6 md:mx-8 md:mt-12 md:pb-8" />
-      <div className="text-center">© 2025 EduLMS. All rights reserved.</div>
+      <div className="text-center">© 2025 Unicode. All rights reserved.</div>
     </div>
   );
 }

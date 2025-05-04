@@ -1,23 +1,38 @@
 "use client"
+import { getRoleFromPath } from '@/utils/function/getRoleFromPath'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
-import { BiCalendar, BiHome } from 'react-icons/bi'
-import { LiaListAlt } from 'react-icons/lia'
-import { PiGraduationCapDuotone } from 'react-icons/pi'
+import { BiBookOpen, BiCalendar, BiHome, BiUser } from "react-icons/bi"
+import { LiaListAlt } from "react-icons/lia"
+import { MdAssignment, MdClass } from "react-icons/md"
+import { PiGraduationCapDuotone } from "react-icons/pi"
 
 interface LayoutProps {
     children: React.ReactNode
 }
-const sidebarItems = [
-    { Icon: BiHome, text: 'Dashboard', link: '/dashboard/student/home' },
-    { Icon: PiGraduationCapDuotone, text: 'Courses', link: '/dashboard/student/courses' },
-    { Icon: LiaListAlt, text: 'Assignments', link: '/dashboard/student/assignments' },
-    { Icon: BiCalendar, text: 'Schedule', link: '/dashboard/student/schedule' },
-]
+
+const sidebarItems = {
+    student: [
+        { Icon: BiHome, text: "Dashboard", link: "home" },
+        { Icon: PiGraduationCapDuotone, text: "Courses", link: "courses" },
+        { Icon: LiaListAlt, text: "Assignments", link: "assignments" },
+        { Icon: BiCalendar, text: "Schedule", link: "schedule" },
+    ],
+    admin: [
+        { Icon: BiHome, text: "Dashboard", link: "home" },
+        { Icon: BiUser, text: "Users", link: "users" },
+        { Icon: BiBookOpen, text: "Courses", link: "courses" },
+        { Icon: MdAssignment, text: "Assignments", link: "assignments" },
+        { Icon: MdClass, text: "Classes", link: "classes" },
+    ],
+    unknown: [],
+};
+
 function Layout({ children }: LayoutProps) {
     const pathname = usePathname(); // Get current route
+    const role = getRoleFromPath(pathname)
     return (
         <div className='flex justify-center items-center h-screen w-full'>
             <div className='md:flex md:flex-col sm:hidden md:w-[20vw] h-full bg-[#1E3A8A40] border border-[#FFFFFF10] p-6 gap-y-8'>
@@ -39,11 +54,11 @@ function Layout({ children }: LayoutProps) {
                     </div>
                 </div>
                 <div className='w-full flex flex-col gap-y-1'>
-                    {sidebarItems.map(({ Icon, text, link }, index) => (
+                    {sidebarItems[role].map(({ Icon, text, link }, index) => (
                         <Link
-                            href={link}
+                            href={`/dashboard/${role}/${link}`}
                             key={index}
-                            className={`w-full flex px-3 py-4 gap-x-4 ${pathname === link ? 'bg-[#F59E0B10] text-header rounded-lg' : ''}`}>
+                            className={`w-full flex px-3 py-4 gap-x-4 ${pathname === `/dashboard/${role}/${link}` ? 'bg-[#F59E0B10] text-header rounded-lg' : ''}`}>
                             <Icon className='text-[20px]' />
                             <div className='text-[16px]'>{text}</div>
                         </Link>

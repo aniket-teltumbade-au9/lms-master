@@ -11,7 +11,7 @@ function Navbar() {
             <div className="w-full relative bg-body">
                 <nav className="text-cta md:mx-[80px] px-10 py-5 flex justify-between items-center">
                     {/* Logo */}
-                    <div className="text-header text-2xl font-bold">EduLMS</div>
+                    <div className="text-header text-2xl font-bold">Unicode</div>
 
                     {/* Desktop Navigation Links */}
                     <div className="md:flex md:items-center hidden space-x-8">
