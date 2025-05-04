@@ -1,5 +1,3 @@
-// /pages/api/auth/[...nextauth].ts OR /app/api/auth/[...nextauth]/route.ts
-
 import { connectDB } from "@/lib/mongoose";
 import { UserModel } from "@/models/User";
 import bcrypt from "bcrypt";
@@ -15,7 +13,6 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
-                console.log(credentials)
                 await connectDB();
                 const user = await UserModel.findOne({ email: credentials?.email });
 
@@ -33,14 +30,22 @@ const handler = NextAuth({
     },
     callbacks: {
         async jwt({ token, user }) {
-            if (user) token.user = user;
+            if (user) {
+                token.user = {
+                    id: user.id,
+                    email: user.email,
+                };
+            }
             return token;
         },
         async session({ session, token }) {
-            if (token?.user) session.user = token.user;
+            if (token.user) {
+                session.user = token.user;
+            }
             return session;
         }
     }
+
 });
 
 export { handler as GET, handler as POST };

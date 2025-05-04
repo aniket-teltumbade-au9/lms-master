@@ -1,4 +1,3 @@
-// types/next-auth.d.ts
 import "next-auth";
 
 declare module "next-auth" {
@@ -6,15 +5,24 @@ declare module "next-auth" {
         user: {
             id: string;
             email: string;
+            role?: string;
+            isProfileSet?: boolean;
         };
     }
 
     interface User {
         id: string;
         email: string;
+        role?: string;
+        isProfileSet?: boolean;
     }
 
     interface JWT {
-        id: string;
+        user: {
+            id: string;
+            email: string;
+            role?: string;
+            isProfileSet?: boolean;
+        };
     }
 }
