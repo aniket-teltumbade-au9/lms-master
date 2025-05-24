@@ -1,10 +1,16 @@
 'use client';
-import { Field, FieldInstanceProps, useFormContext } from "houseform";
+import { Field, FieldInstanceBaseProps, useFormContext } from "houseform";
 import React from "react";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends FieldInstanceBaseProps {
     label?: string;
     error?: string[];
+    className?: string;
+    value?: string;
+    name: string;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    placeholder?: string;
+    type: 'email' | 'password' | 'text' | 'number' | 'date' | 'file' | 'checkbox' | 'radio';
 }
 const UniInput = ({ label, className = '', error, ...props }: Readonly<InputProps>) => (
     <div className="flex flex-col gap-y-2">
@@ -18,9 +24,9 @@ const UniInput = ({ label, className = '', error, ...props }: Readonly<InputProp
 )
 function Input({
     name = '',
-    onChangeValidate = () => { },
+    onChangeValidate,
     ...props
-}: FieldInstanceProps & InputProps) {
+}: InputProps) {
     const ctx = useFormContext();
     return ctx ? (
         <Field name={name} onChangeValidate={onChangeValidate}>
@@ -29,6 +35,7 @@ function Input({
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     error={errors}
+                    name={name}
                     {...props}
                 />
             )}
