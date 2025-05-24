@@ -18,7 +18,7 @@ function Welcome() {
                         Resume Course
                     </button>
                     <div className="flex-1">
-                        <Input className="w-full bg-[#ffffff10] border border-[#ffffff20] px-4 py-2 rounded-lg" placeholder="Search courses" name="search" />
+                        <Input className="w-full bg-[#ffffff10] border border-[#ffffff20] px-4 py-2 rounded-lg" placeholder="Search courses" name="search" type="text" />
                     </div>
                 </div>
             </div>
