@@ -11,7 +11,7 @@ export function SessionClient({ children }: React.PropsWithChildren) {
     const router = useRouter();
 
     useEffect(() => {
-        if (status === "loading") return; // Wait until session is loaded
+        if (status === "loading" || pathname === '/') return; // Wait until session is loaded
 
         const isAuthRoute = pathname.startsWith('/auth');
 
