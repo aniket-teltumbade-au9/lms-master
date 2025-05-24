@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true, // Set to true if you want to ignore ESLint errors during production builds
   },
   images: {
-    domains: ["res.cloudinary.com"], // Allow Cloudinary images
+    domains: ["res.cloudinary.com", "ui-avatars.com"], // Allow Cloudinary images
   },
 };
 

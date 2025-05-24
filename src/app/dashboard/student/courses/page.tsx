@@ -1,3 +1,4 @@
+"use client"
 import CompletedCourse from "@/components/dashboard/student/Courses/CompletedCourses.tsx"
 import Header from "@/components/dashboard/student/Courses/Header"
 import CourseList from "@/components/dashboard/student/Courses/List/CourseList"
