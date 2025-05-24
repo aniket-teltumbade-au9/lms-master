@@ -24,6 +24,7 @@ function ForgotPassword() {
                             label='Email address'
                             type="email"
                             placeholder="Enter your email"
+                            name={"email"}
                         />
                         <div>
                             <button className="w-full bg-header rounded-[8px] p-[10.5px]">Send Reset Link</button>
