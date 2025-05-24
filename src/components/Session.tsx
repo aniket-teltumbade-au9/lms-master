@@ -23,7 +23,7 @@ export function SessionClient({ children }: React.PropsWithChildren) {
         }
 
         // ✅ Not authenticated or missing role and trying to access dashboard → Redirect to login
-        else if (!userId || !role) {
+        else if (!userId || !role || !isAuthRoute) {
             const query = userId && !role ? '?setRole=true' : '';
             router.replace(`/auth/sign_in${query}`);
         }
