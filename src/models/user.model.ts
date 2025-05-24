@@ -1,4 +1,3 @@
-// models/User.ts
 import { getModelForClass, prop } from "@typegoose/typegoose";
 import mongoose from "mongoose";
 
@@ -11,6 +10,15 @@ export class User {
 
     @prop()
     image?: string;
+
+    @prop()
+    name!: string;
+
+    @prop()
+    role!: string;
+
+    @prop()
+    phoneNumber!: string;
 
     @prop()
     emailVerified?: Date;

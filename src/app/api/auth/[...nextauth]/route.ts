@@ -1,12 +1,13 @@
-// /pages/api/auth/[...nextauth].ts OR /app/api/auth/[...nextauth]/route.ts
+// /app/api/auth/[...nextauth]/route.ts
 
 import { connectDB } from "@/lib/mongoose";
-import { UserModel } from "@/models/User";
+import { UserModel } from "@/models/user.model";
 import bcrypt from "bcrypt";
+import type { AuthOptions } from "next-auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -15,33 +16,50 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
-                console.log(credentials)
+                if (!credentials?.email || !credentials?.password) return null;
+
                 await connectDB();
-                const user = await UserModel.findOne({ email: credentials?.email });
+                const user = await UserModel.findOne({ email: credentials.email });
+                if (!user) return null;
 
-                if (!user) throw new Error("User not found");
+                const isValid = await bcrypt.compare(credentials.password, user.password);
+                if (!isValid) return null;
 
-                const isValid = await bcrypt.compare(credentials!.password, user.password);
-                if (!isValid) throw new Error("Invalid credentials");
-
-                return { id: user._id, email: user.email };
+                return {
+                    id: user._id.toString(),
+                    ...user._doc,
+                };
             }
         })
     ],
     session: {
-        strategy: "jwt",
+        strategy: "jwt" as const,
     },
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }) {
-            if (user) token.user = user;
+            // ✅ Add user info to the token at login
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
+                token.name = user.name;
+                token.role = user.role;
+            }
             return token;
         },
         async session({ session, token }) {
-            if (token?.user) session.user = token.user;
+            // ✅ Make token info available in session
+            if (token) {
+                session.user.id = token.id as string;
+                session.user.email = token.email as string;
+                session.user.name = token.name as string;
+                session.user.role = token.role as string;
+            }
             return session;
-        }
+        },
     }
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
 

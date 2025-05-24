@@ -1,11 +1,12 @@
 "use client"; // Required for useRouter in App Router
-
 import Input from "@/components/form/input";
+import Onboarding from "@/components/userOnboarding";
 import { Form } from "houseform";
 import { signIn } from 'next-auth/react';
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import React from "react";
 import { z } from "zod";
 
 const schema = {
@@ -13,25 +14,36 @@ const schema = {
   password: z.string().min(8, "Password must be at least 8 characters")
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*/, "Password must contain at least one lowercase letter, one uppercase letter, and one number"),
 };
-
+interface User { email: string; password: string; }
 function SignIn() {
-  const router = useRouter();
-  const hSubmit = async (values: { email: string; password: string; }) => {
-    const res = await signIn("credentials", {
+  const [data, setData] = React.useState<User | null>();
+  const params = useSearchParams()
+  const hSubmit = async (values: User) => {
+    const v = {
       email: values.email,
       password: values.password,
-      redirect: false
-    })
+    }
+    console.log(data ?
+      { ...(v ?? {}), ...(data ?? {}), redirect: false } :
+      { ...(v ?? {}), redirect: false });
 
+    const res = await signIn("credentials",
+      data ?
+        { ...(v ?? {}), ...(data ?? {}), redirect: false } :
+        { ...(v ?? {}), redirect: false }
+    )
     if (res?.error) {
       alert(res.error)
     } else if (!res?.ok) {
       alert("Something went wrong")
     } else {
-      router.push("/dashboard/student/home")
+      setData(values)
+      console.log(res, 'ggggggggg')
     }
   }
-  return (
+  const setRole = params.get('setRole');
+  console.log(!setRole && !data)
+  return !setRole || !data ? (
     <div className="w-full flex items-center h-[100vh]">
       <div className="hidden md:w-[65%] md:flex items-center justify-center relative h-full">
         <Image
@@ -113,7 +125,7 @@ function SignIn() {
         </div>
       </div>
     </div>
-  );
+  ) : <Onboarding submit={hSubmit} />;
 }
 
 export default SignIn;

@@ -1,3 +1,4 @@
+"use client"
 import Assignments from "@/components/dashboard/student/Assignments"
 
 function Home() {

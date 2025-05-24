@@ -25,14 +25,12 @@ function Input({
     return ctx ? (
         <Field name={name} onChangeValidate={onChangeValidate}>
             {({ value, setValue, errors }) => (
-                <><UniInput
+                <UniInput
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     error={errors}
                     {...props}
                 />
-                    {console.log(errors)}
-                </>
             )}
         </Field>
     ) : (
