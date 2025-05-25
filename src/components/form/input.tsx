@@ -9,6 +9,7 @@ interface InputProps extends FieldInstanceBaseProps {
     value?: string;
     name: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    handleChange?: (value: string) => void
     placeholder?: string;
     type: 'email' | 'password' | 'text' | 'number' | 'date' | 'file' | 'checkbox' | 'radio';
 }
@@ -25,6 +26,7 @@ const UniInput = ({ label, className = '', error, ...props }: Readonly<InputProp
 function Input({
     name = '',
     onChangeValidate,
+    handleChange,
     ...props
 }: InputProps) {
     const ctx = useFormContext();
@@ -33,7 +35,10 @@ function Input({
             {({ value, setValue, errors }) => (
                 <UniInput
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => {
+                        setValue(e.target.value)
+                        if (handleChange) handleChange(e.target.value)
+                    }}
                     error={errors}
                     name={name}
                     {...props}

@@ -1,6 +1,7 @@
 "use client"
+import Logout from '@/components/Logout'
 import { getRoleFromPath } from '@/utils/function/getRoleFromPath'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -30,10 +31,7 @@ const sidebarItems = {
     ],
     unknown: [],
 };
-const hSignOut = () => {
-    const cnfrm = confirm("Are you sure you want to logout?");
-    if (cnfrm) signOut()
-}
+
 const colors: Record<string, { background: string, color: string }> = {
     "A": { "background": "00ffff", "color": "ff1493" },
     "B": { "background": "000000", "color": "00ffff" },
@@ -92,11 +90,7 @@ function Layout({ children }: LayoutProps) {
                         </div>
                     </div>
                 </div>
-                <div className='w-full border-b border-[#FFFFFF10] pb-1'>
-                    <button onClick={hSignOut} className="w-full bg-yellow-500 text-blue-900 font-semibold py-2 rounded-lg">
-                        Logout
-                    </button>
-                </div>
+                <Logout />
                 <div className='w-full flex flex-col gap-y-1'>
                     {sidebarItems[role].map(({ Icon, text, link }, index) => (
                         <Link

@@ -16,14 +16,16 @@ export function SessionClient({ children }: React.PropsWithChildren) {
         const isAuthRoute = pathname.startsWith('/auth');
 
         const { id: userId, role } = session?.user ?? {};
-
+        console.log(1)
+        if (!userId && isAuthRoute) return
+        console.log(2)
         // ✅ Authenticated user on /auth → Redirect to their dashboard
         if (userId && role && isAuthRoute) {
             router.replace(`/dashboard/${Object.keys(routeRoles).find((key) => routeRoles[key].includes(role))}/home`);
         }
-
+        console.log(3)
         // ✅ Not authenticated or missing role and trying to access dashboard → Redirect to login
-        else if ((!userId || !role) && !isAuthRoute) {
+        if (!userId || !role) {
             const query = userId && !role ? '?setRole=true' : '';
             router.replace(`/auth/sign_in${query}`);
         }

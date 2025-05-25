@@ -3,6 +3,7 @@ import Input from "@/components/form/input";
 import Select from '@/components/form/select';
 import { Form } from "houseform";
 import { z } from "zod";
+import Logout from "./Logout";
 
 const schema = {
     name: z.string().min(3, "Full name must be at least 3 characters"),
@@ -78,6 +79,9 @@ function Onboarding({ submit }: { submit: (values: Data) => void }) {
                                         <button type='submit' className="w-full bg-header rounded-[8px] p-[10.5px]">
                                             Submit for Approval
                                         </button>
+                                    </div>
+                                    <div className="py-2">
+                                        <Logout />
                                     </div>
                                 </form>
                             )}

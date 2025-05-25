@@ -1,6 +1,11 @@
-import { getModelForClass, prop } from "@typegoose/typegoose";
+import { getModelForClass, modelOptions, prop } from "@typegoose/typegoose";
 import mongoose from "mongoose";
 
+@modelOptions({
+    schemaOptions: {
+        timestamps: true, // creates `createdAt` and `updatedAt` automatically
+    },
+})
 export class User {
     @prop({ required: true })
     password!: string;

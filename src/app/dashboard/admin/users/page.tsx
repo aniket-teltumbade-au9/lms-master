@@ -1,8 +1,8 @@
-import ComingSoon from "@/components/comingSoon"
+import { UserList } from "@/components/dashboard/admin/Users"
 
 function Home() {
     return (
-        <ComingSoon />
+        <UserList />
     )
 }
 

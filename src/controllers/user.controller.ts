@@ -12,19 +12,20 @@ interface TokenUser {
 
 interface ExtendedToken {
     user?: TokenUser;
+    id?: string;
 }
 export const updateRole = async (req: NextRequest) => {
     try {
         const token = await getToken({ req }) as ExtendedToken;
-
-        if (!token?.user?.id) {
+        console.log(token, 'test it once')
+        if (!token?.id) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         const data = await req.json();
         await connectDB();
 
-        const userId = new mongoose.Types.ObjectId(token.user.id);
+        const userId = new mongoose.Types.ObjectId(token.id);
         const result = await UserModel.findOneAndUpdate(
             { _id: userId },
             data,
@@ -36,6 +37,21 @@ export const updateRole = async (req: NextRequest) => {
         }
 
         return NextResponse.json({ success: true });
+    } catch (error: Error | unknown) {
+        return NextResponse.json({ error: "Something went wrong: " + error }, { status: 500 });
+    }
+}
+export const getUsers = async (req: NextRequest) => {
+    try {
+        const token = await getToken({ req }) as ExtendedToken;
+        if (!token?.id) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+        await connectDB();
+        const filter = {}
+        // req.body as RootFilterQuery<typeof UserModel>;
+        const users = await UserModel.find(filter);
+        return NextResponse.json(users);
     } catch (error: Error | unknown) {
         return NextResponse.json({ error: "Something went wrong: " + error }, { status: 500 });
     }

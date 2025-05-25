@@ -1,6 +1,7 @@
+"use client"
 import { Field, useFormContext } from "houseform";
 import React from "react";
-import { ZodDefault, ZodEnum } from "zod";
+import { ZodDefault, ZodEnum, ZodTypeAny } from "zod";
 
 interface Options {
     label: string;
@@ -12,15 +13,16 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
     label: string;
     inputLabel?: string;
     error?: string[]
-    onChangeValidate?: ZodDefault<ZodEnum<["teacher", "student"]>>
+    onChangeValidate?: ZodTypeAny | ZodDefault<ZodEnum<["teacher", "student"]>>
     fullWidth?: boolean
+    handleChange?: (value: unknown) => void
 }
 function UniSelect({ options, label, inputLabel, className = '', fullWidth = false, ...props }: Props) {
     return (
         <div className={fullWidth ? "flex flex-col gap-y-2" : `relative inline-block sm:w-full`}>
             {inputLabel && <div className="text-[#E5E7EB] text-[18px]">{inputLabel}</div>}
             <select
-                className={`${fullWidth ? 'my-2' : ''} ${className ?? 'md:w-fit sm:w-full max-w-full'} h-[50px] bg-[#FFFFFF10] text-[#E5E7EB] placeholder-[#ADAEBC] rounded-lg pr-10 pl-4 focus:outline-none appearance-none`}
+                className={`${className ?? 'md:w-fit sm:w-full max-w-full'} h-[42px] bg-[#FFFFFF10] text-[#E5E7EB] placeholder-[#ADAEBC] rounded-lg pr-10 pl-4 focus:outline-none appearance-none`}
                 {...props}
             >
                 {label && <option value="" disabled className="text-[#ADAEBC]">
@@ -45,7 +47,7 @@ function UniSelect({ options, label, inputLabel, className = '', fullWidth = fal
         </div>
     )
 }
-function Select({ onChangeValidate, defaultValue = '', name = '', ...props }: Props) {
+function Select({ onChangeValidate, defaultValue = '', name = '', handleChange, ...props }: Props) {
     const ctx = useFormContext();
 
     return ctx ? (
@@ -53,7 +55,10 @@ function Select({ onChangeValidate, defaultValue = '', name = '', ...props }: Pr
             {({ value, setValue, errors }) => (
                 <UniSelect
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => {
+                        setValue(e.target.value)
+                        if (handleChange) handleChange(e.target.value)
+                    }}
                     error={errors}
                     {...props}
                 />
@@ -65,3 +70,4 @@ function Select({ onChangeValidate, defaultValue = '', name = '', ...props }: Pr
 }
 
 export default Select;
+
