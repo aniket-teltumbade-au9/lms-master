@@ -48,9 +48,10 @@ export const getUsers = async (req: NextRequest) => {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
         await connectDB();
-        const filter = {}
+
+        const filter = await req.json()
         // req.body as RootFilterQuery<typeof UserModel>;
-        const users = await UserModel.find(filter);
+        const users = await UserModel.find(filter).sort({ createdAt: -1 });
         return NextResponse.json(users);
     } catch (error: Error | unknown) {
         return NextResponse.json({ error: "Something went wrong: " + error }, { status: 500 });

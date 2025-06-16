@@ -1,8 +1,8 @@
-import ComingSoon from "@/components/comingSoon"
+import { CourseList } from "@/components/dashboard/admin/Courses"
 
 function Home() {
     return (
-        <ComingSoon />
+        <CourseList />
     )
 }
 

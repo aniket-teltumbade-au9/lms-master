@@ -21,6 +21,7 @@ export function UserList() {
                 components={{ filter: Filters }}
                 service={{ user: fetchUsers }}
                 columns={userColumns}
+                titleProps={{ title: 'User Management' }}
             />
         </div>
     )

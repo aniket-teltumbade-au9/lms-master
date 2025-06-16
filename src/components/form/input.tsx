@@ -12,6 +12,7 @@ interface InputProps extends FieldInstanceBaseProps {
     handleChange?: (value: string) => void
     placeholder?: string;
     type: 'email' | 'password' | 'text' | 'number' | 'date' | 'file' | 'checkbox' | 'radio';
+    initialValue?: string | number
 }
 const UniInput = ({ label, className = '', error, ...props }: Readonly<InputProps>) => (
     <div className="flex flex-col gap-y-2">
@@ -27,26 +28,30 @@ function Input({
     name = '',
     onChangeValidate,
     handleChange,
+    initialValue,
+    type,
     ...props
 }: InputProps) {
     const ctx = useFormContext();
+    initialValue = initialValue || type === 'number' ? 0 : '';
     return ctx ? (
-        <Field name={name} onChangeValidate={onChangeValidate}>
+        <Field name={name} onChangeValidate={onChangeValidate} initialValue={initialValue}>
             {({ value, setValue, errors }) => (
                 <UniInput
-                    value={value}
+                    value={(value).toString()}
                     onChange={(e) => {
                         setValue(e.target.value)
                         if (handleChange) handleChange(e.target.value)
                     }}
                     error={errors}
                     name={name}
+                    type={type}
                     {...props}
                 />
             )}
         </Field>
     ) : (
-        <UniInput name={name} {...props} />
+        <UniInput name={name} type={type} {...props} />
     );
 }
 

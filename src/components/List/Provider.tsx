@@ -2,6 +2,7 @@
 import { List } from '@/types/list'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
+import { TitleComponent } from '../Title'
 import { ListForm } from './Form'
 import { TableComponent } from './Table'
 import { useTable } from './useTable'
@@ -12,7 +13,17 @@ interface ListContextType {
 }
 
 export const ListContext = React.createContext<ListContextType>({ filters: {} })
-export const ListProvider = ({ components: { filter, table = TableComponent }, columns, service }: List) => {
+export const ListProvider = (
+    {
+        components: {
+            filter,
+            table = TableComponent,
+            Title = TitleComponent
+        },
+        columns,
+        service,
+        titleProps = { title: '' }
+    }: List) => {
     const [filters, setFilters] = React.useState<Record<string, unknown>>({});
     const Filters = filter;
     const queryKey = [...Object.keys(service), ...Object.values(filters).filter(el => typeof el === 'string')]
@@ -23,13 +34,12 @@ export const ListProvider = ({ components: { filter, table = TableComponent }, c
     });
     const tableData = useTable(columns ?? [], data ?? []);
 
-    if (isLoading) return 'Loading...';
-    if (error) return 'An error occurred';
     const Table = table
     return (
         <ListContext.Provider value={{ data, filters, setFilters }}>
+            {Title && <Title {...titleProps} />}
             {Filters && <ListForm><Filters /></ListForm>}
-            <Table table={tableData} />
+            {isLoading ? 'Loading...' : error ? 'An error occurred' : <Table table={tableData} />}
         </ListContext.Provider>
     )
 }
