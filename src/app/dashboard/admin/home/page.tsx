@@ -1,8 +1,8 @@
-import ComingSoon from "@/components/comingSoon"
+import Dashboard from "@/components/dashboard/admin/Dashboard"
 
 function Home() {
     return (
-        <ComingSoon />
+        <Dashboard />
     )
 }
 
